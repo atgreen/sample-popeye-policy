@@ -1,0 +1,5 @@
+# This is a k8s sanitizer policy file.
+
+# This file provides json pattern matchers for every "expected fail"
+# (XFAIL).  The policy engine will essentially ignore any failures in
+# a popeye report that match these patterns.

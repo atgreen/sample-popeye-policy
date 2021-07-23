@@ -82,4 +82,4 @@ following important questions:
 
 Check out [Red Light Green Light](https://github.com/atgreen/red-light-green-light) at https://github.com/atgreen/red-light-green-light !
 
-- Anthony
+Anthony

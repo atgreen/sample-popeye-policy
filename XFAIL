@@ -7,3 +7,6 @@
 # Ignore level 1 and 2 findings.  We only care about the really bad
 # stuff.  The '..' notation indicates a range of values.
 { "report": "popeye", "level": "1..2" }
+
+# Ignore platform issues until next year.
+{ "report": "popeye", "resource": "^openshift.*" } 2022-01-01

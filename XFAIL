@@ -3,3 +3,7 @@
 # This file provides json pattern matchers for every "expected fail"
 # (XFAIL).  The policy engine will essentially ignore any failures in
 # a popeye report that match these patterns.
+
+# Ignore level 1 and 2 findings.  We only care about the really bad
+# stuff.  The '..' notation indicates a range of values.
+{ "report": "popeye", "level": "1..2" }

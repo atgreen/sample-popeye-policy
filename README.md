@@ -3,7 +3,7 @@
 This is sample [Red Light Green Light](https://rl.gl) (rlgl) policy
 for analyzing [Popeye](https://popeyecli.io/) k8s sanitization
 reports.  Red Light Green Light makes it easy to build automation
-based on the application of custom defined policy against a report
+based on the application of custom defined policy against reports
 from Popeye.
 
 ```shell
@@ -18,15 +18,20 @@ At this point, click on the link above to generate an API key, and continue belo
 $ rlgl login --key MY_API_KEY https://rl.gl
 $ export ID=$(rlgl start)
 $ rlgl evaluate --id=$ID --policy=https://github.com/atgreen/sample-popeye-policy popeye.html
-RED: https://rl.gl/doc?id=RLGL-FO8W7G4J (sha3/256: 6f211abd124bc15f1bf4537f8956a131d0289fc451eabb4cd29ee807822e3f39)
+RED: https://rl.gl/doc?id=RLGL-BK6AQACL (sha3/256: 8e78e4ea403d5d24ef6e6d6b817661c18c2a0ce1032d37ee075ea7ac25a36e32)
 $ echo $?
 1
 ```
 
 This tells us that the popeye sanitization report doesn't meet the
-policy we've defined in out git repo.  Click on the link to explore
-the analysis, which includes direct links to policy commits in github,
-and a link to the original report.
+policy we've defined in our git repo.  The interesting rules are
+defined in the
+[XFAIL](https://github.com/atgreen/sample-popeye-policy/blob/main/XFAIL)
+file. Click on the link to explore the analysis, which includes direct
+links to policy commits in github, and a link to the original report.
+
+The exit code of `1` makes it easy to test is a shell script, allowing
+you to send out notifications or similar.
 
 The analysis report was signed by both the rlgl server and your
 client, and the server's document signature was uploaded to the
@@ -37,24 +42,24 @@ You can verify all of the signatures and the
 [rekor](https://github.com/sigstore/rekor) log entry like so:
 
 ```shell
-$ rlgl verify RLGL-FO8W7G4J | RLGL_CLIENT_PUBKEY=~/.config/rlgl/public_key.pem sh
+$ rlgl verify RLGL-BK6AQACL  | RLGL_CLIENT_PUBKEY=~/.config/rlgl/public_key.pem sh
 Checking document signature: Verified OK
 Checking client signature  : Verified OK
 Searching for sigstore record:
 LogID: c0d23d6ad406973f9559f3ba2d1ca01f84147d8ffc5b8445c224f98b9591801d
-Index: 7860
-IntegratedTime: 2021-07-23T21:57:13Z
-UUID: 099b342f36f3c0515a65e040100ce560b37616d2ab35a6adad60b52c62d0aa70
+Index: 7878
+IntegratedTime: 2021-07-23T22:26:45Z
+UUID: 74269476b9c11ec5fa65318625adb67f73d8560a7816eed506f2cb351b764eb3
 Body: {
   "RekordObj": {
     "data": {
       "hash": {
         "algorithm": "sha256",
-        "value": "5475aff643cd22cd14633873e07621b8709f00ec0406653d34537eb371042306"
+        "value": "d52005ba6e2e7f62c033e78c3496960b216e8bcd84234379c89f602faa2a5b0c"
       }
     },
     "signature": {
-      "content": "MGYCMQDnseFujxxRUuXN/Dh1qaKZt2nr9m3El7AwNRKVSpfrkWX6xcUXPZe7q0JA15LfOtQCMQDoIZLjTAxthjEVFzxdNu8HbFo/g8Ie9dsNQI3WBf0bxPOWHKYUiqFAeL3uCwV9gHM=",
+      "content": "MGQCMHPWJ8yqDzjB/Gcr8blJCDfREfrEfv9LSnJ/CwozNDQiOnVUWnfaB215Q3QQstMU6QIwDuHp4+0pwrenwWpZy0WAldhg/vGpv70x31PO5/1vMmd+z5g4NWIhsgTXAXnO/rN4",
       "format": "x509",
       "publicKey": {
         "content": "LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS0KTUhZd0VBWUhLb1pJemowQ0FRWUZLNEVFQUNJRFlnQUU4ZG8rQVFwbm5tanBwK1J1Y05tTy8zN04xVWpGNzZNZwpXd01Jcm1odlZvTjExajZXL0krSitQdk5NbDZiWHdvQnh0dk53V3dLbzFSdEZ3dGFXMWpWZnNCNEV6SkErb05PCkdEUDlNTmdCQW5uN3JiKzgrTm1XUW1IUllQeEJtbmFJCi0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQo="
